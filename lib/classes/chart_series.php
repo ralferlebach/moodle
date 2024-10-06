@@ -29,6 +29,20 @@ use coding_exception;
 use JsonSerializable;
 
 /**
+ * Chart series.
+ *
+ * @package    core
+ * @copyright  2016 Frédéric Massart - FMCorz.net
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+namespace core;
+defined('MOODLE_INTERNAL') || die();
+
+use coding_exception;
+use JsonSerializable;
+
+/**
  * Chart series class.
  *
  * @package    core
@@ -44,13 +58,13 @@ class chart_series implements JsonSerializable {
 
     /** @var string[] Colors of the series. */
     protected $colors = [];
-    /** @var string Fill mode for area charts. See https://www.chartjs.org/docs/latest/charts/area.html */
+    /** @var string Fill mode for area charts. */
     protected $fill = null;
     /** @var string Label for this series. */
     protected $label;
     /** @var string[] Labels for the values of the series. */
     protected $labels = null;
-    /** @var bool Whether the line of the serie should be smooth or not. */
+    /** @var bool Whether the line of the series should be smooth or not. */
     protected $smooth = null;
     /** @var string Type of the series. */
     protected $type = self::TYPE_DEFAULT;
@@ -178,6 +192,7 @@ class chart_series implements JsonSerializable {
         return count($this->colors) == $this->get_count();
     }
 
+
     /**
      * Serialize the object.
      *
@@ -186,16 +201,16 @@ class chart_series implements JsonSerializable {
     public function jsonSerialize(): array {
         $data = [
             'label' => $this->label,
-            'labels' => $this->labels,
-            'type' => $this->type,
-            'values' => $this->values,
-            'colors' => $this->colors,
+            'data' => $this->values, // Updated to match Chart.js 3.8 structure
+            'backgroundColor' => $this->colors, // Use colors for background
+            'borderColor' => $this->get_color(), // Use the first color for border
             'fill' => $this->fill,
+            'type' => $this->type,
+            'smooth' => $this->smooth,
             'axes' => [
                 'x' => $this->xaxis,
                 'y' => $this->yaxis,
             ],
-            'smooth' => $this->smooth
         ];
         return $data;
     }
@@ -246,14 +261,14 @@ class chart_series implements JsonSerializable {
         $this->smooth = $smooth;
     }
 
-    /**
+   /**
      * Set the type of the series.
      *
      * @param string $type Constant value from self::TYPE_*.
      */
     public function set_type($type) {
         if (!in_array($type, [self::TYPE_DEFAULT, self::TYPE_LINE])) {
-            throw new coding_exception('Invalid serie type.');
+            throw new coding_exception('Invalid series type.');
         }
         $this->type = $type;
     }

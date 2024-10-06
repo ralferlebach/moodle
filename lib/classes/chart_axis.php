@@ -27,7 +27,6 @@ defined('MOODLE_INTERNAL') || die();
 
 use coding_exception;
 use JsonSerializable;
-use renderable;
 
 /**
  * Chart axis class.
@@ -131,12 +130,17 @@ class chart_axis implements JsonSerializable {
      */
     public function jsonSerialize(): array {
         return [
-            'label' => $this->label,
+            'title' => [
+                'display' => true,
+                'text' => $this->label,
+            ],
             'labels' => $this->labels,
-            'max' => $this->max,
-            'min' => $this->min,
+            'ticks' => [
+                'max' => $this->max,
+                'min' => $this->min,
+                'stepSize' => $this->stepsize,
+            ],
             'position' => $this->position,
-            'stepSize' => $this->stepsize,
         ];
     }
 
@@ -193,5 +197,4 @@ class chart_axis implements JsonSerializable {
     public function set_stepsize($stepsize) {
         $this->stepsize = $stepsize;
     }
-
 }

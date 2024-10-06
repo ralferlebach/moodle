@@ -50,8 +50,18 @@ require([
         chartImage = chartArea.find('.chart-image'),
         chartTable = chartArea.find('.chart-table-data'),
         chartLink = chartArea.find('.chart-table-expand a');
+
+    // Create the chart instance using Chart.js 3.8
     Builder.make(data).then(function(ChartInst) {
-        new Output(chartImage, ChartInst);
+        // Render the chart using the new Chart.js API
+        var ctx = chartImage[0].getContext('2d');
+        var chart = new Chart(ctx, {
+            type: ChartInst.type,
+            data: ChartInst.data,
+            options: ChartInst.options
+        });
+
+        // Output the chart table
         new OutputTable(chartTable, ChartInst);
     });
 
