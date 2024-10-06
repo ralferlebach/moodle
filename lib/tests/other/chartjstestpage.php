@@ -34,9 +34,42 @@ $PAGE->set_heading('Chart.js library test');
 $PAGE->set_pagelayout('standard');
 echo $OUTPUT->header();
 
-$sales = new \core\chart_series('Sales', [1000, 1170, 660, 1030]);
-$expenses = new \core\chart_series('Expenses', [400, 460, 1120, 540]);
-$labels = ['2004', '2005', '2006', '2007'];
+$sales = new \core\chart_series('Sales', [1000, 1170, 660, 1030, 920]);
+$expenses = new \core\chart_series('Expenses', [400, 460, 1120, 540, 360]);
+$labels = [2004, 2005, 2006, 2007, 2008];
+
+$chart3 = new \core\chart_line();
+$chart3->set_title('TENSIONED LINES CHART');
+$chart3->add_series($sales);
+$chart3->add_series($expenses);
+$chart3->set_labels($labels);
+
+
+$chart3->get_xaxis(0, true)->set_label("I'm the label for X");
+$chart3->get_yaxis(0, true)->set_label("I'm the label for Y");
+
+$xaxis = new \core\chart_axis();
+$xaxis->set_label("I'm X, but at the top");
+$xaxis->set_position(chart_axis::POS_TOP); // You can use POS_BOTTOM or POS_TOP for X axis, in this case let's change the position to the top.
+$xaxis->set_stepsize(2); // Chart steps will be displayed as  2004, 2006, 2008
+
+// Customise Y axis.
+$yaxis = new \core\chart_axis();
+$yaxis->set_position(chart_axis::POS_RIGHT);  // You can use POS_LEFT or POS_RIGHT for Y axis, in this case let's change the position to the right side.
+$chart3->set_yaxis($yaxis);
+
+// Customise X axis.
+$xaxis = new chart_axis();
+
+$chart = new \core\chart_line();
+$xaxis = $chart->get_xaxis(1, true);
+$xaxis->set_min(1);
+$xaxis->set_max(100);
+$chart3->set_xaxis($xaxis);
+
+
+
+
 
 $chart = new \core\chart_pie();
 $chart->set_title('PIE CHART');
@@ -49,11 +82,15 @@ $chart2->set_doughnut(true);
 $chart2->add_series($sales);
 $chart2->set_labels($labels);
 
+<<<<<<< Updated upstream
 $chart3 = new \core\chart_line();
 $chart3->set_title('TENSIONED LINES CHART');
 $chart3->add_series($sales);
 $chart3->add_series($expenses);
 $chart3->set_labels($labels);
+=======
+
+>>>>>>> Stashed changes
 
 $chart4 = new \core\chart_line();
 $chart4->set_smooth(true);
