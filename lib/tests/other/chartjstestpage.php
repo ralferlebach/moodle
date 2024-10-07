@@ -142,7 +142,7 @@ $chart11->add_series($sales);
 $chart11->set_labels($labels);
 
 echo $OUTPUT->render($chart3);
-
+/*
 echo $OUTPUT->render($chart);
 echo $OUTPUT->render($chart2);
 
@@ -154,5 +154,5 @@ echo $OUTPUT->render($chart8);
 echo $OUTPUT->render($chart9);
 echo $OUTPUT->render($chart10);
 echo $OUTPUT->render($chart11);
-
+*/
 echo $OUTPUT->footer();
