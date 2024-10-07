@@ -44,29 +44,20 @@ $chart3->add_series($sales);
 $chart3->add_series($expenses);
 $chart3->set_labels($labels);
 
-
 $chart3->get_xaxis(0, true)->set_label("I'm the label for X");
 $chart3->get_yaxis(0, true)->set_label("I'm the label for Y");
 
 $xaxis = new \core\chart_axis();
 $xaxis->set_label("I'm X, but at the top");
-$xaxis->set_position(chart_axis::POS_TOP); // You can use POS_BOTTOM or POS_TOP for X axis, in this case let's change the position to the top.
+$xaxis->set_position(\core\chart_axis::POS_TOP); // You can use POS_BOTTOM or POS_TOP for X axis, in this case let's change the position to the top.
 $xaxis->set_stepsize(2); // Chart steps will be displayed as  2004, 2006, 2008
+$chart3->set_xaxis($xaxis);
 
 // Customise Y axis.
 $yaxis = new \core\chart_axis();
-$yaxis->set_position(chart_axis::POS_RIGHT);  // You can use POS_LEFT or POS_RIGHT for Y axis, in this case let's change the position to the right side.
+$yaxis->set_position(\core\chart_axis::POS_RIGHT);  // You can use POS_LEFT or POS_RIGHT for Y axis, in this case let's change the position to the right side.
 $chart3->set_yaxis($yaxis);
-
 // Customise X axis.
-$xaxis = new chart_axis();
-
-$chart = new \core\chart_line();
-$xaxis = $chart->get_xaxis(1, true);
-$xaxis->set_min(1);
-$xaxis->set_max(100);
-$chart3->set_xaxis($xaxis);
-
 
 
 
@@ -82,15 +73,6 @@ $chart2->set_doughnut(true);
 $chart2->add_series($sales);
 $chart2->set_labels($labels);
 
-<<<<<<< Updated upstream
-$chart3 = new \core\chart_line();
-$chart3->set_title('TENSIONED LINES CHART');
-$chart3->add_series($sales);
-$chart3->add_series($expenses);
-$chart3->set_labels($labels);
-=======
-
->>>>>>> Stashed changes
 
 $chart4 = new \core\chart_line();
 $chart4->set_smooth(true);
@@ -159,9 +141,11 @@ $chart11->set_legend_options(['display' => false]);
 $chart11->add_series($sales);
 $chart11->set_labels($labels);
 
+echo $OUTPUT->render($chart3);
+
 echo $OUTPUT->render($chart);
 echo $OUTPUT->render($chart2);
-echo $OUTPUT->render($chart3);
+
 echo $OUTPUT->render($chart4);
 echo $OUTPUT->render($chart5);
 echo $OUTPUT->render($chart6);
